@@ -10,5 +10,10 @@ namespace Models
     public class _10HDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Music> Musics { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Format> Formats { get; set; }
+        public DbSet<Formating> Formatings { get; set; }
     }
 }
