@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Music
+    public class Album
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public string Artist { get; set; }
-        public int AlbumID { get; set; }
         public DateTime ReleaseDate { get; set; }
         public string Genre { get; set; }
         public decimal Price { get; set; }
-        public int duration { get; set; }
     }
 }

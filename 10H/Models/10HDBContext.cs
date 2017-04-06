@@ -15,5 +15,6 @@ namespace Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<Format> Formats { get; set; }
         public DbSet<Formating> Formatings { get; set; }
+        public DbSet<Album> Albums { get; set; }
     }
 }
