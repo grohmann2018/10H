@@ -15,6 +15,7 @@ namespace Models
         public DateTime ReleaseDate { get; set; }
         public string Genre { get; set; }
         public decimal Price { get; set; }
-        public int duration { get; set; }
+        public int Duration { get; set; }
+        public int Number { get; set; }
     }
 }

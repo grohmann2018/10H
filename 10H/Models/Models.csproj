@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201704061158416_Album1.Designer.cs">
       <DependentUpon>201704061158416_Album1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704061319094_MusicNumber.cs" />
+    <Compile Include="Migrations\201704061319094_MusicNumber.Designer.cs">
+      <DependentUpon>201704061319094_MusicNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Music.cs" />
     <Compile Include="Order.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704061158416_Album1.resx">
       <DependentUpon>201704061158416_Album1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704061319094_MusicNumber.resx">
+      <DependentUpon>201704061319094_MusicNumber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
