@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace _10H.Controllers
 {
-    public class UserController : System.Web.Http.ApiController
+    public class UserController : Controller
     {
         private _10HDBContext db = new _10HDBContext();
 
@@ -31,17 +31,17 @@ namespace _10H.Controllers
             return users;
         }
 
-        public IHttpActionResult GetUser(int id)
-        {
-            var user = db.Users.Where(c => c.ID.Equals(id));
+        //public IHttpActionResult GetUser(int id)
+        //{
+        //    var user = db.Users.Where(c => c.ID.Equals(id));
 
            
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
-        }
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //}
     }
 
      
