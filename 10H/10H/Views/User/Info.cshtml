@@ -1,0 +1,44 @@
+﻿@model Models.User
+
+@{
+    ViewBag.Title = "Info";
+}
+
+<h2>Info</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Adress</th>
+
+    </tr>
+    
+    
+    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Adress)
+            </td>
+        </tr>
+    
+
+</table>
+

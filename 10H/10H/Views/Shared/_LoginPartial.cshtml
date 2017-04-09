@@ -1,23 +1,28 @@
-﻿
-@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+﻿@using Microsoft.AspNet.Identity
+@if (Request.Cookies["UserId"] != null)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
-        </ul>
+        
+        
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    @Html.ActionLink("Bonjour " + Request.Cookies["UserId"]["name"] + "!", "Info", "Account", routeValues: new { id = Request.Cookies["UserId"]["id"] }, htmlAttributes: new { id = User.Identity.GetUserId() })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
+            </ul>
+        
     }
+
+
+
+
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("S’inscrire", "Register", "User", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Se connecter", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
