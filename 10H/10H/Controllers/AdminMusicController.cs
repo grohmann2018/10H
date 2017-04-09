@@ -1,6 +1,7 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -35,18 +36,26 @@ namespace _10H.Controllers
         // POST: AdminMusic/Create
         [HttpPost]
         [ValidateAntiForgeryToken] //Eviter l'injection de script par onglet
-        public ActionResult Create([Bind(Include = "Name,Artist,ReleaseDate,Genre,Price,Duration,Number")] Music music) //Bind : On récupère uniquement les attributs spécifiés
+        public ActionResult Create([Bind(Include = "Name,Artist,ReleaseDate,Genre,Price,Duration")] Music Music, HttpPostedFileBase MusicFile) //Bind : On récupère uniquement les attributs spécifiés
         {
-            music.AlbumID = 1;
-
             if (ModelState.IsValid)
             {
-                db.Musics.Add(music);
+                var path = Server.MapPath("~/Content/Ressources/Musics/");
+                int fileNumber = Directory.GetFiles(path).Length + 1;
+
+                Music.AlbumID = 1;
+                Music.Number = fileNumber;
+
+                db.Musics.Add(Music);
                 db.SaveChanges();
+                
+                string filename = Path.GetFileName(fileNumber.ToString() + ".mp3");
+                MusicFile.SaveAs(Path.Combine(path, filename));
+
                 return RedirectToAction("Index");
             }
 
-            return View(music);
+            return View(Music);
         }
 
         // GET: AdminMusic/Delete/id
