@@ -1,7 +1,79 @@
-﻿@model Models.Music
+﻿@model ViewModels.MusicsResponseVM
 @{
     ViewBag.Title = "Index";
 }
 
+<script type="text/javascript">
+
+    function BuyMusic(id)
+    {
+       
+        window.location.href = "/Purchase/BuyConfirmation/"+id;
+    }
+</script>
+
 <h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div id="buy-container" class="w3-container">
+    <table class="table">
+        <tr>
+            <td class="buy-head">Name</td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Music.Name)
+            </td>
+        </tr>
+        <tr>
+            <td class="buy-head">Artist</td class="buy-head">
+            <td>
+                @Html.DisplayFor(modelItem => Model.Music.Artist)
+            </td>
+        </tr>
+        <tr>
+            <td class="buy-head">ReleaseDate</td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Music.ReleaseDate)
+            </td>
+        </tr>
+        <tr>
+            <td class="buy-head">Genre</td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Music.Genre)
+            </td>
+        </tr>
+        <tr>
+            <td class="buy-head">Price</td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Music.Price)
+            </td>
+        </tr>
+        <tr>
+            <td class="buy-head">Duration</td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Music.Duration)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <audio controls>
+                    <source src="@Url.Action("Play","AdminMusic", new { musicId = Model.Music.Number })" type="audio/mp3" />
+                    <p>Your browser does not support HTML 5 audio element</p>
+                </audio>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Music.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = Model.Music.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = Model.Music.ID })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form name="Buy" method="post">
+                    <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn" onclick="BuyMusic(@Model.Music.ID);">Buy</button>
+                </form>
+            </td>
+        </tr>
+
+    </table>
+</div>
 

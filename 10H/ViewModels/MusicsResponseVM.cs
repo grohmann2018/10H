@@ -10,5 +10,6 @@ namespace ViewModels
     public class MusicsResponseVM
     {
         public List<Music> Musics { get; set; }
+        public Music Music { get; set; }
     }
 }
