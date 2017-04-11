@@ -222,11 +222,11 @@ namespace _10H.Controllers
 
             if (ModelState.IsValid)
             {
-                var newUser = new ApplicationUser { UserName = user.FirstName, Email = user.Email };
-                var result = await UserManager.CreateAsync(newUser, user.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                //var newUser = new ApplicationUser { UserName = user.FirstName, Email = user.Email };
+               // var result = await UserManager.CreateAsync(newUser, user.Password);
+               // if (result.Succeeded)
+               // {
+                 //   await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
                     db.Users.Add(user);
                     db.SaveChanges();
                     if (Request.Cookies["userId"] != null)
@@ -243,8 +243,8 @@ namespace _10H.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
                     return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
+               // }
+              //  AddErrors(result);
                 
             }
 

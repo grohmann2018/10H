@@ -1,6 +1,7 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,7 +18,7 @@ namespace _10H.Controllers
         // GET: AdminMusic
         public ActionResult Index()
         {
-            var musics = db.Musics.ToList();
+            var musics = db.Musics.Include(m => m.Album).ToList();
 
             MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
             {
@@ -30,20 +31,27 @@ namespace _10H.Controllers
         // Get: AdminMusic/Create
         public ActionResult Create()
         {
-            return View();
+            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+            {
+                Albums = db.Albums.ToList()
+            };
+            return View(musicsResponseVM);
         }
 
         // POST: AdminMusic/Create
         [HttpPost]
         [ValidateAntiForgeryToken] //Eviter l'injection de script par onglet
-        public ActionResult Create([Bind(Include = "Name,Artist,ReleaseDate,Genre,Price,Duration")] Music Music, HttpPostedFileBase MusicFile) //Bind : On récupère uniquement les attributs spécifiés
+        public ActionResult Create(MusicsResponseVM MusicVM, HttpPostedFileBase MusicFile) //Bind : On récupère uniquement les attributs spécifiés
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && MusicFile != null)
             {
+                Music Music = MusicVM.Music;
+
                 var path = Server.MapPath("~/Content/Ressources/Musics/");
                 int fileNumber = Directory.GetFiles(path).Length + 1;
 
-                Music.AlbumID = 1;
+                Music.Album = new Album();
+                Music.Thumbnail = 1;
                 Music.Number = fileNumber;
 
                 db.Musics.Add(Music);
@@ -55,7 +63,7 @@ namespace _10H.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(Music);
+            return View(MusicVM);
         }
 
         // GET: AdminMusic/Delete/id
@@ -84,6 +92,56 @@ namespace _10H.Controllers
             db.Musics.Remove(music);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: AdminMusic/Details/id
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Music music = db.Musics.Find(id);
+            if (music == null)
+            {
+                return HttpNotFound();
+            }
+            return View(music);
+        }
+
+        // GET: AdminMusic/Edit/id
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Music music = db.Musics.Find(id);
+            if (music == null)
+            {
+                return HttpNotFound();
+            }
+            return View(music);
+        }
+
+        // POST: AdminMusic/Edit/id
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,Name,Artist,ReleaseDate,Genre,Price,Duration,Number")] Music Music)
+        {
+            if (ModelState.IsValid)
+            {
+                //Music.AlbumID = 1;
+                
+                db.Entry(Music).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(Music);
         }
 
         public ActionResult Play(int musicID)

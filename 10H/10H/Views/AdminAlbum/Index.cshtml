@@ -1,4 +1,4 @@
-﻿@model ViewModels.MusicsResponseVM
+﻿@model ViewModels.AlbumsResponseVM
 
 @{
     ViewBag.Title = "Index";
@@ -11,18 +11,20 @@
 </p>
 <table class="table">
     <tr>
+        <th>Album</th>
         <th>Name</th>
         <th>Artist</th>
         <th>ReleaseDate</th>
         <th>Genre</th>
         <th>Price</th>
-        <th>Duration</th>
-        <th>Album</th>
     </tr>
 
-    @foreach (var item in Model.Musics)
+    @foreach (var item in Model.Albums)
     {
         <tr>
+            <td>
+                <img src="@Url.Content("~/Content/Ressources/Images/Albums/"+item.Thumbnail+".png")" height="50" width="50"/>
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -39,16 +41,6 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Album.Name)
-            </td>
-            <td>
-                <audio controls>
-                        <source src="@Url.Action("Play", new { musicId = item.Number })" type="audio/mp3" />
-                        <p>Your browser does not support HTML 5 audio element</p>
-                </audio>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
@@ -57,3 +49,5 @@
     }
 
 </table>
+
+
