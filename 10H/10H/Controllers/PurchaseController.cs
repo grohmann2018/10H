@@ -25,7 +25,7 @@ namespace _10H.Controllers
             }
             MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
             {
-                Music = music
+                Music1 = music
             };
             //db.Users.Remove(user);
             //db.SaveChanges();
@@ -59,7 +59,7 @@ namespace _10H.Controllers
             }
             MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
             {
-                Music = music
+                Music1 = music
             };
             //db.Users.Remove(user);
             //db.SaveChanges();

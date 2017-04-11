@@ -251,6 +251,17 @@ namespace _10H.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            if (Request.Cookies["userId"] != null)
+            {
+                Response.Cookies["userId"].Expires = DateTime.Now.AddDays(-1);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
 
         // GET: User/Delete/id
         public ActionResult Delete(int? id)

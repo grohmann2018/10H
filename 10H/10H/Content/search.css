@@ -52,3 +52,41 @@ h2{
     max-height: 100% !important;
     min-height: 600px;
 }
+
+
+.trending{
+    width: 50px;
+    height: 50px;
+    border: 3px solid #eeeeee;
+    border-radius: 15px;
+}
+
+.rating {
+    direction: rtl;
+    text-align:left;
+    white-space:nowrap;
+}
+
+.rating a {
+   text-decoration: none !important;
+   transition: color .4s;
+   font-size: 25px;
+   margin:-3px;
+}
+
+.full {
+    color: orange !important;
+}
+
+.empty {
+    color: #aaa !important;
+}
+
+.rating a:hover,
+.rating a:focus,
+.rating a:hover ~ a,
+.rating a:focus ~ a
+{
+   color: orange !important;
+   cursor: pointer;
+}
