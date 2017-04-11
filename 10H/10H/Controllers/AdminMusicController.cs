@@ -41,7 +41,7 @@ namespace _10H.Controllers
         // POST: AdminMusic/Create
         [HttpPost]
         [ValidateAntiForgeryToken] //Eviter l'injection de script par onglet
-        public ActionResult Create(MusicsResponseVM MusicVM, HttpPostedFileBase MusicFile) //Bind : On récupère uniquement les attributs spécifiés
+        public ActionResult Create(MusicsResponseVM MusicVM, HttpPostedFileBase MusicFile)
         {
             if (ModelState.IsValid && MusicFile != null)
             {
@@ -50,7 +50,7 @@ namespace _10H.Controllers
                 var path = Server.MapPath("~/Content/Ressources/Musics/");
                 int fileNumber = Directory.GetFiles(path).Length + 1;
 
-                Music.Album = new Album();
+                Music.Album = db.Albums.First();
                 Music.Thumbnail = 1;
                 Music.Number = fileNumber;
 
