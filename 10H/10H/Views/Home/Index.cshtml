@@ -1,15 +1,33 @@
-﻿@using (Html.BeginForm("Index", "Purchase", FormMethod.Post))
-{
-@Html.AntiForgeryToken()
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
 
+
+<script type="text/javascript" >
+
+
+    function search() {
+        var elmt = document.getElementById('search').value;
+        if (elmt == 'Search...' || elmt == '') {
+            alert('Please enter a search ');
+        }
+        else {
+            $.ajax({
+                url: '/Purchase/BuyConfirmation',
+                type: 'post',
+                data: elmt
+            })
+        }
+    }
+
+</script>
     <div class="box">
         <div class="container-1">
-            <span class="icon"><i class="fa fa-search"></i></span>
+            <span class="icon" onclick="search();"><i class="fa fa-search"></i></span>
             <input type="search" id="search" placeholder="Search..." />
         </div>
     </div>
 
-}
+
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>

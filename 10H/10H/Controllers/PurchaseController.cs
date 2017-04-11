@@ -15,7 +15,7 @@ namespace _10H.Controllers
         // GET: Purchase
 
         [HttpPost]
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
 
             Music music = db.Musics.Find(1);
@@ -50,9 +50,9 @@ namespace _10H.Controllers
 
 
         
-        public ActionResult BuyConfirmation(int id)
+        public ActionResult BuyConfirmation(string name)
         {
-            Music music = db.Musics.Find(id);
+            Music music = db.Musics.Find(1);
             if (music == null)
             {
                 return HttpNotFound();
