@@ -6,16 +6,13 @@
 
 
     function search() {
-        var elmt = document.getElementById('search').value;
+        var name = document.getElementById('search').value;
         if (elmt == 'Search...' || elmt == '') {
             alert('Please enter a search ');
         }
         else {
-            $.ajax({
-                url: '/Purchase/BuyConfirmation',
-                type: 'post',
-                data: elmt
-            })
+            window.location.href = '/Purchase/BuyConfirmation?name='+name;
+           
         }
     }
 

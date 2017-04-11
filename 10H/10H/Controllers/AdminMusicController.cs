@@ -31,11 +31,12 @@ namespace _10H.Controllers
         // Get: AdminMusic/Create
         public ActionResult Create()
         {
-            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
-            {
-                Albums = db.Albums.ToList()
-            };
-            return View(musicsResponseVM);
+            //MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+            //{
+            //    Albums = db.Albums.ToList()
+            //};
+            //return View(musicsResponseVM);
+            return View();
         }
 
         // POST: AdminMusic/Create
