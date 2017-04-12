@@ -31,8 +31,7 @@
                 @if (Request.Cookies["UserId"] != null)
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("MyMusics", "Index", "AdminMusic", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("MyOrders", "Index", "Help", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Musics", "Index", "Music", new { area = "" }, null)</li>
                         @if (Request.Cookies["UserId"]["roleId"] == "1") {
                         <li>@Html.ActionLink("Musics", "Index", "AdminMusic", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("Albums", "Index", "AdminAlbum", new { area = "" }, null)</li>

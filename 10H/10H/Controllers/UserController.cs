@@ -143,7 +143,7 @@ namespace _10H.Controllers
                     ModelState.AddModelError("", "Un compte existe déjà avec cet email");
                     return View(user);
                 }
-                user.RoleID = 2;
+                user.RoleID = 1;
                 db.Users.Add(user);
                 db.SaveChanges();
                 if (Request.Cookies["userId"] != null)

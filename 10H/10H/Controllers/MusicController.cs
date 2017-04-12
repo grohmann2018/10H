@@ -18,14 +18,22 @@ namespace _10H.Controllers
         // GET: Music
         public ActionResult Index()
         {
-            var musics = db.Musics.Include(m => m.Album).ToList();
-
-            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+            if (Request.Cookies["UserId"] != null)
             {
-                Musics = musics
-            };
+                var musics = db.Musics.Include(m => m.Album).ToList();
+                int userid = Int32.Parse(Request.Cookies["UserId"]["id"]);
+                var orders = db.Orders.Where(u => u.UserID == userid).Select(u => u.MusicID).ToList();
 
-            return View(musicsResponseVM);
+                MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+                {
+                    Musics = musics,
+                    MusicOrderedIds = orders
+                };
+
+                return View(musicsResponseVM);
+            }
+
+            return RedirectToAction("Login", "User");
         }
 
         public ActionResult Play(int musicID)
@@ -49,7 +57,9 @@ namespace _10H.Controllers
             if (m.Genre != null)
                 lm = lm.Where(c => c.Genre.Equals(m.Genre)).ToList();
 
-            return PartialView("_Musics", lm);
+            MusicsResponseVM vm = new MusicsResponseVM();
+            vm.Musics = lm;
+            return PartialView("_Musics", vm);
         }
     }
 }

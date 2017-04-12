@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Models.Music>
+﻿@model ViewModels.MusicsResponseVM
 
 <table class="table">
     <tr>
@@ -12,7 +12,7 @@
         <th>Album</th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Musics)
     {
         <tr>
             <td>
