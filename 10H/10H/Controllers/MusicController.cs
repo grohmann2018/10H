@@ -33,5 +33,23 @@ namespace _10H.Controllers
             var file = Server.MapPath("~/Content/Ressources/Musics/" + musicID.ToString() + ".mp3");
             return File(file, "audio/mp3");
         }
+
+        [HttpPost]
+        public PartialViewResult Search(MusicsResponseVM musicResponseVM)
+        {
+            Music m = musicResponseVM.Music1;
+            List<Music> lm = db.Musics.ToList();
+
+            if(m.Name != null)
+                lm = lm.Where(c => c.Name.Equals(m.Name)).ToList();
+            if(m.Artist != null)
+                lm = lm.Where(c => c.Artist.Equals(m.Artist)).ToList();
+            if (m.ReleaseDate != new DateTime(01, 01, 0001))
+                lm = lm.Where(c => c.ReleaseDate.Equals(m.ReleaseDate)).ToList();
+            if (m.Genre != null)
+                lm = lm.Where(c => c.Genre.Equals(m.Genre)).ToList();
+
+            return PartialView("_Musics", lm);
+        }
     }
 }

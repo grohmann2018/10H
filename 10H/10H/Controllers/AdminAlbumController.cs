@@ -14,18 +14,23 @@ namespace _10H.Controllers
     public class AdminAlbumController : Controller
     {
         private _10HDBContext db = new _10HDBContext();
-
+        //Response.Cookies["userId"]["id"]
         // GET: AdminAlbum
         public ActionResult Index()
         {
-            var albums = db.Albums.ToList();
-
-            AlbumsResponseVM albumsResponseVM = new AlbumsResponseVM()
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                Albums = albums
-            };
+                var albums = db.Albums.ToList();
 
-            return View(albumsResponseVM);
+                AlbumsResponseVM albumsResponseVM = new AlbumsResponseVM()
+                {
+                    Albums = albums
+                };
+
+                return View(albumsResponseVM);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // Get: AdminAlbum/Create
