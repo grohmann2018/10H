@@ -125,7 +125,7 @@ a{
    cursor: pointer;
 }
 
-#newComment{
+#comment{
         margin: auto;
     width: 100%;
     max-width: 100% !important;
@@ -138,4 +138,10 @@ a{
      width: 150px;
      height: 150px;
      text-indent: -9999px; /* hides the link text */
+}
+}
+
+.btn-comment{
+      margin-top: 1%;
+      margin-left: 45%;
 }
