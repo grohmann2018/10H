@@ -80,6 +80,7 @@
     <Compile Include="AlbumsResponseVM.cs" />
     <Compile Include="CommentsResponseVM.cs" />
     <Compile Include="MusicsResponseVM.cs" />
+    <Compile Include="OrdersResponseVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsersResponseVM.cs" />
   </ItemGroup>
