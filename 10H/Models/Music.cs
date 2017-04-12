@@ -18,5 +18,8 @@ namespace Models
         public int Duration { get; set; }
         public int Number { get; set; }
         public int Thumbnail { get; set; }
+        public Decimal Mark { get; set; }
+        public int NumberOfComments { get; set; }
+
     }
 }

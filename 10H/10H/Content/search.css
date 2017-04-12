@@ -125,6 +125,13 @@ a{
    cursor: pointer;
 }
 
+#newComment{
+        margin: auto;
+    width: 100%;
+    max-width: 100% !important;
+}
+}
+
 .logo{
      background: url("Ressources/Images/logo.png") no-repeat top left;
      display: block;

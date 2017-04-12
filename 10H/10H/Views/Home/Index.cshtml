@@ -1,12 +1,26 @@
 ﻿@model ViewModels.MusicsResponseVM
+    
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 
 
-<script type="text/javascript" >
+<script type="text/javascript">
 
-
+    function SendMark(Musicid, mark)
+    {
+        var comment = {
+            User : null,
+            MusicID : Musicid,
+            Comments : null,
+            Note : mark,
+        };
+        $.ajax({
+            url: '/Comment/Mark',
+            type: 'post',
+            data: comment
+        });
+    }
     function search() {
         var name = document.getElementById('search').value;
         if (elmt == 'Search...' || elmt == '') {
@@ -22,6 +36,10 @@
         window.location.href = '/AdminMusic/Details/' + id;
     }
 
+    function GoToComments(id) {
+        window.location.href = '/Comment/AddComment/' + id;
+    }
+
 </script>
     <div class="box">
         <div class="container-1">
@@ -30,34 +48,61 @@
         </div>
     </div>
 
+@*<td class="rating">
+    
+</td>*@
+<td>
 
+    <div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
+        <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+    <div class="row">
+        <h2 style="border-bottom:1px solid #eeeeee;">Most Popular</h2>
+        <div class="col-md-4">
+            <div class="populars">
+                <img class="trending" src="~/Content/Ressources/Images/Albums/1.png" />
+                <p>@Model.Music1.Name</p>
+                <p><a class="btn btn-default" onclick="goToDetails(@Model.Music1.ID);">Details </a></p>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <h2 style="border-bottom:1px solid #eeeeee;">Most Popular</h2>
-    <div class="col-md-4">
-        <div class="populars">
-            <img class="trending" src="~/Content/Ressources/Images/Albums/1.png" />
-            <p>@Model.Music1.Name</p>
-            <p><a class="btn btn-default" onclick="goToDetails(@Model.Music1.ID);">Details </a></p>
+                @if (@Request.Cookies["userId"] != null)
+                {
+                    for (int j = 0; j < @Math.Round(Model.Music1.Mark); j++)
+                    {
+                        <a class="full" style="cursor:pointer" onclick="SendMark(@Model.Music1.ID, @Math.Round(Model.Music1.Mark) - @j);">★</a>
+                    }
+                    for (int j = 0; j < 5 -@Math.Round( Model.Music1.Mark); j++)
+                    {
+                        <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.Music1.ID, 5-@j);">★</a>
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < @Math.Round(Model.Music1.Mark); j++)
+                    {
+                        <a class="full" >★</a>
+                    }
+                    for (int j = 0; j < @Math.Round(5 - Model.Music1.Mark); j++)
+                    {
+                        <a class="empty">★</a>
+                    }
+                }
+                <a style="cursor:pointer" onclick="GoToComments(@Model.Music1.ID);">@Model.Music1.NumberOfComments Comments</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="populars">
+                <img class="trending" src="~/Content/Ressources/Images/Albums/2.png" />
+                <p>@Model.Music2.Name</p>
+                <p><a class="btn btn-default" onclick="goToDetails(@Model.Music2.ID);">Details </a></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="populars">
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="populars">
-            <img class="trending" src="~/Content/Ressources/Images/Albums/2.png" />
-            <p>@Model.Music2.Name</p>
-            <p><a class="btn btn-default" onclick="goToDetails(@Model.Music2.ID);">Details </a></p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="populars">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-        </div>
-    </div>
-</div>

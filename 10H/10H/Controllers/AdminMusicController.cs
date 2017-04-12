@@ -54,6 +54,8 @@ namespace _10H.Controllers
                 Music.Album = db.Albums.Find(MusicVM.selectedAlbumID);
                 Music.Thumbnail = Music.Album.Thumbnail;
                 Music.Number = fileNumber;
+                Music.Mark = 0;
+                Music.NumberOfComments = 0;
 
                 db.Musics.Add(Music);
                 db.SaveChanges();
