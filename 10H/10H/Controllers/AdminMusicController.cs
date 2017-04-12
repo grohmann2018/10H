@@ -37,7 +37,7 @@ namespace _10H.Controllers
         // Get: AdminMusic/Create
         public ActionResult Create()
         {
-            if ((Response.Cookies["userId"]["roleId"]) != "1")
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
                 MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
                 {
@@ -55,7 +55,7 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken] //Eviter l'injection de script par onglet
         public ActionResult Create(MusicsResponseVM MusicVM, HttpPostedFileBase MusicFile)
         {
-            if ((Response.Cookies["userId"]["roleId"]) != "1")
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
                 if (ModelState.IsValid && MusicFile != null)
                 {
@@ -78,10 +78,10 @@ namespace _10H.Controllers
                     MusicFile.SaveAs(Path.Combine(path, filename));
 
                     string ffPath = Server.MapPath("~/Content/Ressources/ffmpeg-20170411-f1d80bc-win64-static/bin/ffmpeg.exe");
-                    string processString = ffPath + " -t 20 -i " + Path.Combine(path, filename) + " " + Path.Combine(path2, filename);
+                    string processString = "-t 20 -i " + Path.Combine(path, filename) + " " + Path.Combine(path2, filename);
 
                     System.Diagnostics.Process p = new System.Diagnostics.Process();
-                    p.StartInfo = new System.Diagnostics.ProcessStartInfo(processString);
+                    p.StartInfo = new System.Diagnostics.ProcessStartInfo(ffPath, processString);
                     p.Start();
                     p.WaitForExit();
 

@@ -32,16 +32,18 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("MyMusics", "Index", "AdminMusic", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("MyOrders", "Index", "Help", new { area = "" }, null)</li>
+                        @if (Request.Cookies["UserId"]["roleId"] == "1") {
                         <li>@Html.ActionLink("Musics", "Index", "AdminMusic", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("Albums", "Index", "AdminAlbum", new { area = "" }, null)</li>
+                        }
                     </ul>
                 }
                 else
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Accueil", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
+                    <!--<ul class="nav navbar-nav">
+                        <li>@*Html.ActionLink("Accueil", "Index", "Home", new { area = "" }, null)*@</li>
+                        <li>@*@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)*@</li>
+                    </ul>-->
                 }
 
                 @Html.Partial("_LoginPartial")
@@ -54,7 +56,7 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                <p>&copy; @DateTime.Now.Year - 10H Corporation</p>
             </footer>
         </div>
     </div>
