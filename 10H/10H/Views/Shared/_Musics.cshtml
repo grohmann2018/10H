@@ -40,10 +40,20 @@
                 @Html.DisplayFor(modelItem => item.Album.Name)
             </td>
             <td>
-                <audio controls>
-                    <source src="@Url.Action("Play", new { musicId = item.Number })" type="audio/mp3" />
-                    <p>Your browser does not support HTML 5 audio element</p>
-                </audio>
+                @if (Model.MusicOrderedIds.Contains(item.ID))
+                {
+                    <audio controls>
+                        <source src="@Url.Action("Play", new { musicId = item.Number, path = "Musics" })" type="audio/mp3" />
+                        <p>Your browser does not support HTML 5 audio element</p>
+                    </audio>
+                }
+                else
+                {
+                    <audio controls>
+                        <source src="@Url.Action("Play", new { musicId = item.Number, path = "CutMusics" })" type="audio/mp3" />
+                        <p>Your browser does not support HTML 5 audio element</p>
+                    </audio>
+                }
             </td>
         </tr>
     }

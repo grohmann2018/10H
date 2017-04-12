@@ -36,9 +36,9 @@ namespace _10H.Controllers
             return RedirectToAction("Login", "User");
         }
 
-        public ActionResult Play(int musicID)
+        public ActionResult Play(int musicID, string path)
         {
-            var file = Server.MapPath("~/Content/Ressources/Musics/" + musicID.ToString() + ".mp3");
+            var file = Server.MapPath("~/Content/Ressources/"+path+"/" + musicID.ToString() + ".mp3");
             return File(file, "audio/mp3");
         }
 
