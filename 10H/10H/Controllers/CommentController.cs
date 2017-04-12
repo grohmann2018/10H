@@ -112,11 +112,15 @@ namespace _10H.Controllers
 
 
         [HttpPost]
-        public ActionResult AddComment(Comment comment)
+        public ActionResult AddComment(int MusicID, string comments )
         {
+
             if (ModelState.IsValid)
             {
+                Comment comment = new Comment();
+                comment.MusicID = MusicID;
                 comment.Note = -1;
+                comment.Comments = comments;
                 db.Comments.Add(comment);
                 db.SaveChanges();
             }

@@ -8,18 +8,10 @@
 @Scripts.Render("~/bundles/bootstrap")
 <script type="text/javascript">
     function AddComment(Musicid) {
-        var element = document.getElementById('newComment');
-        var comment = {
-            User: null,
-            MusicID: Musicid,
-            Comments: element,
-            Note: null,
-        };
-        $.ajax({
-            url: '/Comment/AddComment',
-            type: 'post',
-            data: comment
-        });
+        var comment = document.getElementById('comment').value;
+
+        window.location.href = "/Comment/AddComment?MusicID=" + Musicid + "&comment=" + comment;
+
     }
 </script>
 
@@ -77,10 +69,13 @@
 <div style="margin: auto;width: 50%">
     @foreach (var item in Model.Comments)
     {
-        <textarea id="comment">@item.Comments</textarea>
+        <div><textarea readonly id="comment">@item.Comments</textarea> <p><a class="btn btn-default btn-comment" onclick="">Delete !</a></p></div>
     }
-    <textarea id="comment newComment" placeholder="Comment ..."></textarea>
-    <p><a class="btn btn-default" onclick="AddComment(@Model.Music.ID);">Comment !</a></p>
+    <form id="loginForm" name="form1" method="post" action="/Comment/AddComment">
+        <textarea id="comments" name="comments" placeholder="Comment ..."></textarea>
+        <input id="MusicID" name="MusicID" type="hidden" value="@Model.Music.ID"/>
+        <p><a class="btn btn-default btn-comment" onclick="$('#loginForm').submit()">Comment !</a></p>
+   </form>
 </div>
 
 <p style="text-align:center;color:#333333">
