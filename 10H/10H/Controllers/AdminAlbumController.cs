@@ -98,7 +98,13 @@ namespace _10H.Controllers
             {
                 return HttpNotFound();
             }
-            return View(album);
+
+            AlbumsResponseVM albumResponseVM = new AlbumsResponseVM()
+            {
+                Album = album,
+                Musics = db.Musics.Where(a => a.Album.ID == album.ID).ToList()
+            };
+            return View(albumResponseVM);
         }
 
         // GET: AdminAlbums/Edit/id

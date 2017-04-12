@@ -11,5 +11,7 @@ namespace ViewModels
     public class AlbumsResponseVM
     {
             public List<Album> Albums { get; set; }
+            public Album Album { get; set; }
+            public List<Music> Musics { get; set; }
     }
 }
