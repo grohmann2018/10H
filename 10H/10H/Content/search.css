@@ -40,9 +40,11 @@
     border-radius: 15px;
      width: 80% !important;
 }
-h2{
+h2, h4{
     text-align: center;
     margin-top: 5% !important;
+    font-family:'Brush Script MT' !important;
+
 }
 
 .image{
@@ -55,12 +57,44 @@ h2{
 
 
 .trending{
-    width: 50px;
-    height: 50px;
+    width: 150px;
+    height: 150px;
     border: 3px solid #eeeeee;
     border-radius: 15px;
 }
+.populars{
+    margin-left: 33%;
+    text-align: center;
+}
 
+.details{
+    border: 3px solid #eeeeee;
+    width: 50%;
+    margin: auto;
+    margin-bottom:5%;
+}
+
+.dl-details{
+        margin: auto;
+        margin-bottom:5%;
+    width: 50%;
+}
+
+
+dt{
+    text-align: left !important;
+    font-size: medium;
+    font-family:'Brush Script MT';
+}
+
+dd , p{
+    margin-bottom: 3%;
+    font-family:'Brush Script MT';
+}
+
+a{
+    color: white !important;
+}
 .rating {
     direction: rtl;
     text-align:left;
