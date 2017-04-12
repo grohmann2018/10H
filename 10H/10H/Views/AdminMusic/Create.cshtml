@@ -66,6 +66,14 @@
             </div>
         </div>
 
+        @Html.DropDownList("Album",
+                    new SelectList(
+                        Model.Albums.Select(a => new { ID = a, Name = a }),
+                        "ID",
+                        "Name"
+                    ),
+                    "Select Album",
+                    new { @class = "form-control" })
 
         <div><p>Fichier audio :</p>
             <input type="file" name="MusicFile" /><br />
