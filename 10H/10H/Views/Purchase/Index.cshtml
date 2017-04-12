@@ -7,7 +7,7 @@
 
     function BuyMusic(id)
     {
-       
+        
         window.location.href = "/Purchase/BuyConfirmation/"+id;
     }
 </script>
@@ -22,54 +22,54 @@
         <tr>
             <td class="buy-head">Name</td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Music.Name)
+                @Html.DisplayFor(modelItem => Model.Music1.Name)
             </td>
         </tr>
         <tr>
             <td class="buy-head">Artist</td class="buy-head">
             <td>
-                @Html.DisplayFor(modelItem => Model.Music.Artist)
+                @Html.DisplayFor(modelItem => Model.Music1.Artist)
             </td>
         </tr>
         <tr>
             <td class="buy-head">ReleaseDate</td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Music.ReleaseDate)
+                @Html.DisplayFor(modelItem => Model.Music1.ReleaseDate)
             </td>
         </tr>
         <tr>
             <td class="buy-head">Genre</td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Music.Genre)
+                @Html.DisplayFor(modelItem => Model.Music1.Genre)
             </td>
         </tr>
         <tr>
             <td class="buy-head">Price</td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Music.Price)
+                @Html.DisplayFor(modelItem => Model.Music1.Price)
             </td>
         </tr>
         <tr>
             <td class="buy-head">Duration</td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Music.Duration)
+                @Html.DisplayFor(modelItem => Model.Music1.Duration)
             </td>
         </tr>
         <tr>
             <td>
                 <audio controls>
-                    <source src="@Url.Action("Play","AdminMusic", new { musicId = Model.Music.Number })" type="audio/mp3" />
+                    <source src="@Url.Action("Play","AdminMusic", new { musicId = Model.Music1.Number })" type="audio/mp3" />
                     <p>Your browser does not support HTML 5 audio element</p>
                 </audio>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Music.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = Model.Music.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = Model.Music.ID })
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Music1.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = Model.Music1.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = Model.Music1.ID })
             </td>
         </tr>
         <tr>
             <td>
                 <form name="Buy" method="post">
-                    <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn" onclick="BuyMusic(@Model.Music.ID);">Buy</button>
+                    <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn" onclick="BuyMusic(@Model.Music1.ID);">Buy</button>
                 </form>
             </td>
         </tr>

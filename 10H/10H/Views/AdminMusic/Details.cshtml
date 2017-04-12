@@ -6,10 +6,10 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Music</h4>
+<div class="details">
+    <h4 style="text-align:center;">Music</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal dl-details">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -26,13 +26,13 @@
             @Html.DisplayFor(model => model.Artist)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.AlbumID)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.AlbumID)
-        </dd>
+        </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.ReleaseDate)
         </dt>
@@ -65,12 +65,12 @@
             @Html.DisplayFor(model => model.Duration)
         </dd>
     </dl>
-    <audio controls>
+    <audio controls style="margin-left: 25%;">
         <source src="@Url.Action("Play", new { musicId = Model.Number })" type="audio/mp3" />
         <p>Your browser does not support HTML 5 audio element</p>
     </audio>
 </div>
-<p>
+<p style="text-align:center;color:#333333">
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

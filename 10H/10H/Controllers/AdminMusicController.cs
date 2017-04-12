@@ -45,7 +45,7 @@ namespace _10H.Controllers
         {
             if (ModelState.IsValid && MusicFile != null)
             {
-                Music Music = MusicVM.Music;
+                Music Music = MusicVM.Music1;
 
                 var path = Server.MapPath("~/Content/Ressources/Musics/");
                 int fileNumber = Directory.GetFiles(path).Length + 1;
