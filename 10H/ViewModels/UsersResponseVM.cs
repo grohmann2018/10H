@@ -10,5 +10,6 @@ namespace ViewModels
     public class UsersResponseVM
     {
         public List<User> Users { get; set; }
+        public User User { get; set; }
     }
 }

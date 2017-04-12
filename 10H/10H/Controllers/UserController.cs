@@ -100,20 +100,14 @@ namespace _10H.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login([Bind(Include = "Email,Password")] User user, string returnUrl)
+        public ActionResult Login([Bind(Include = "Email,Password")] User user, string returnUrl)
         {
-
-
-             
-        
-            
             var newUser = db.Users.Where(i => (i.Email == user.Email) && (i.Password == user.Password)).FirstOrDefault();
 
             if (newUser == null)
             {
                 return View("Index");
             }
-
             else
             {
                 if (Request.Cookies["userId"] != null)
@@ -123,89 +117,12 @@ namespace _10H.Controllers
 
                 Response.Cookies["userId"]["id"] = newUser.ID.ToString();
                 Response.Cookies["userId"]["name"] = newUser.FirstName;
+                Response.Cookies["userId"]["roleId"] = newUser.RoleID.ToString();
                 return RedirectToAction("Index","Home");
             }
-        
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(user);
-            //}
-
-            //    Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
-            //    Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
-            //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            //User real_user = db.Users.Find(user.Email);
-            //if (real_user == null)
-            //{
-            //    return View(user);
-            //}
-            //db.Users.Remove(user);
-            //db.SaveChanges();
-
-            //Redirect(returnUrl);
-            //var result = await SignInManager.PasswordSignInAsync(user.Email, user.Password,false, shouldLockout: false);
-            //switch (result)
-            //{
-            //    case SignInStatus.Success:
-            //        return Redirect(returnUrl);
-            //    case SignInStatus.LockedOut:
-            //        return View("Lockout");
-            //    case SignInStatus.RequiresVerification:
-            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-            //    case SignInStatus.Failure:
-            //    default:
-            //        ModelState.AddModelError("", "Tentative de connexion non valide.");
-            //        return View(user);
-            //}
-            //return RedirectToAction("../Home/Index");
         }
 
 
-
-
-
-
-        //public async Task<ActionResult> Login(ModelBi model, string returnUrl)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
-        //    Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
-        //    var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-        //    switch (result)
-        //    {
-        //        case SignInStatus.Success:
-        //            return RedirectToLocal(returnUrl);
-        //        case SignInStatus.LockedOut:
-        //            return View("Lockout");
-        //        case SignInStatus.RequiresVerification:
-        //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-        //        case SignInStatus.Failure:
-        //        default:
-        //            ModelState.AddModelError("", "Tentative de connexion non valide.");
-        //            return View(model);
-        //    }
-        //}
-
-        //public IHttpActionResult GetUser(int id)
-        //{
-        //    var user = db.Users.Where(c => c.ID.Equals(id));
-
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(user);
-        //}
 
         // Get: User/Register
         public ActionResult Register()
@@ -218,41 +135,30 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken] //Eviter l'injection de script par onglet
         public async Task<ActionResult> Register([Bind(Include = "FirstName,LastName,Email,Password,Adress")] User user ) //Bind : On récupère uniquement les attributs spécifiés
         {
-            //music.AlbumID = 1;
-
             if (ModelState.IsValid)
             {
-                //var newUser = new ApplicationUser { UserName = user.FirstName, Email = user.Email };
-               // var result = await UserManager.CreateAsync(newUser, user.Password);
-               // if (result.Succeeded)
-               // {
-                 //   await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
-                    db.Users.Add(user);
-                    db.SaveChanges();
-                    if (Request.Cookies["userId"] != null)
-                    {
-                        Response.Cookies["userId"].Expires = DateTime.Now.AddDays(-1);
-                    }
-
-                    Response.Cookies["userId"]["id"] = user.ID.ToString();
-                    Response.Cookies["userId"]["name"] = user.FirstName;
-                    // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Envoyer un message électronique avec ce lien
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
-
-                    return RedirectToAction("Index", "Home");
-               // }
-              //  AddErrors(result);
-                
+                User User = db.Users.Where(i => (i.Email == user.Email)).FirstOrDefault();
+                if(User != null)
+                {
+                    ModelState.AddModelError("", "Un compte existe déjà avec cet email");
+                    return View(user);
+                }
+                user.RoleID = 2;
+                db.Users.Add(user);
+                db.SaveChanges();
+                if (Request.Cookies["userId"] != null)
+                {
+                    Response.Cookies["userId"].Expires = DateTime.Now.AddDays(-1);
+                }
+                Response.Cookies["userId"]["id"] = user.ID.ToString();
+                Response.Cookies["userId"]["name"] = user.FirstName;
+                Response.Cookies["userId"]["roleId"] = user.RoleID.ToString();
+                return RedirectToAction("Index", "Home");                
             }
 
             return View(user);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             if (Request.Cookies["userId"] != null)
@@ -313,6 +219,47 @@ namespace _10H.Controllers
             {
                 ModelState.AddModelError("", error);
             }
+        }
+
+
+        // GET: User/Edit/id
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            UsersResponseVM usersResponseVM = new UsersResponseVM()
+            {
+                User = user
+            };
+
+            return View(usersResponseVM);
+        }
+
+        // POST: User/Edit/id
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UsersResponseVM userVM)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = userVM.User;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Index","Home");
+            }
+
+            return View(userVM);
         }
     }
 
