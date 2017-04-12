@@ -53,6 +53,8 @@ namespace _10H.Controllers
                 Music.Album = db.Albums.First();
                 Music.Thumbnail = 1;
                 Music.Number = fileNumber;
+                Music.Mark = 0;
+                Music.NumberOfComments = 0;
 
                 db.Musics.Add(Music);
                 db.SaveChanges();

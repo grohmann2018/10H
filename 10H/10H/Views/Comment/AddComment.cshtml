@@ -1,0 +1,90 @@
+﻿@model ViewModels.CommentsResponseVM
+@{
+    ViewBag.Title = "AddComment";
+}
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script type="text/javascript">
+    function AddComment(Musicid) {
+        var element = document.getElementById('newComment');
+        var comment = {
+            User: null,
+            MusicID: Musicid,
+            Comments: element,
+            Note: null,
+        };
+        $.ajax({
+            url: '/Comment/AddComment',
+            type: 'post',
+            data: comment
+        });
+    }
+</script>
+
+<h2>Details</h2>
+
+<div class="details">
+    <h4 style="text-align:center;">Music</h4>
+    <hr />
+    <dl class="dl-horizontal dl-details">
+        <dt>
+            @Html.DisplayNameFor(model => model.Music.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Music.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Music.Artist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Music.Artist)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.AlbumID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AlbumID)
+            </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Music.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Music.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Music.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Music.Genre)
+        </dd>
+
+    </dl>
+    <audio controls style="margin-left: 25%;">
+        <source src="@Url.Action("Play", new { musicId = Model.Music.Number })" type="audio/mp3" />
+        <p>Your browser does not support HTML 5 audio element</p>
+    </audio>
+</div>
+<div style="margin: auto;width: 50%">
+    @foreach (var item in Model.Comments)
+    {
+        <textarea id="comment">@item.Comments</textarea>
+    }
+    <textarea id="comment newComment" placeholder="Comment ..."></textarea>
+    <p><a class="btn btn-default" onclick="AddComment(@Model.Music.ID);">Comment !</a></p>
+</div>
+
+<p style="text-align:center;color:#333333">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Music.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

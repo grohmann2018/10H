@@ -114,6 +114,18 @@
     <Compile Include="Migrations\201704112029502_comment.Designer.cs">
       <DependentUpon>201704112029502_comment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704121109497_MusicMark.cs" />
+    <Compile Include="Migrations\201704121109497_MusicMark.Designer.cs">
+      <DependentUpon>201704121109497_MusicMark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704121206419_fdsqfs.cs" />
+    <Compile Include="Migrations\201704121206419_fdsqfs.Designer.cs">
+      <DependentUpon>201704121206419_fdsqfs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704121217146_commentMusidID.cs" />
+    <Compile Include="Migrations\201704121217146_commentMusidID.Designer.cs">
+      <DependentUpon>201704121217146_commentMusidID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Music.cs" />
     <Compile Include="Order.cs" />
@@ -164,6 +176,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704112029502_comment.resx">
       <DependentUpon>201704112029502_comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121109497_MusicMark.resx">
+      <DependentUpon>201704121109497_MusicMark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121206419_fdsqfs.resx">
+      <DependentUpon>201704121206419_fdsqfs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121217146_commentMusidID.resx">
+      <DependentUpon>201704121217146_commentMusidID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
