@@ -1,19 +1,46 @@
 ﻿@using Microsoft.AspNet.Identity
+
+<script type="text/javascript">
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+</script>
 @if (Request.Cookies["UserId"] != null)
 {
-    using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
+
         @Html.AntiForgeryToken()
         
         
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    @Html.ActionLink("Bonjour " + Request.Cookies["UserId"]["name"] + "!", "Info", "Account", routeValues: new { id = Request.Cookies["UserId"]["id"] }, htmlAttributes: new { id = User.Identity.GetUserId() })
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">Bonjour @Request.Cookies["UserId"]["name"] !</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            @Html.ActionLink("My Account", "Edit", "User", new { id  = Request.Cookies["UserId"]["id"] }, null)
+                            @Html.ActionLink("My Musics", "Index", "Order", new { area = "" }, null)
+                            
+                        </div>
+                    </div>
                 </li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
+                <li>@Html.ActionLink("Deconnection", "LogOff", "User", new { area = "" }, null)</li>
             </ul>
         
-    }
+    
 
 
 
