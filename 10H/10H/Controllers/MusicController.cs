@@ -35,7 +35,7 @@ namespace _10H.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(MusicsResponseVM musicResponseVM)
+        public PartialViewResult Search(MusicsResponseVM musicResponseVM)
         {
             Music m = musicResponseVM.Music1;
             List<Music> lm = db.Musics.ToList();
