@@ -36,7 +36,12 @@ namespace _10H.Controllers
         // Get: AdminAlbum/Create
         public ActionResult Create()
         {
-            return View();
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            {
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: AdminAlbum/Create
@@ -44,40 +49,50 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,Artist,ReleaseDate,Genre,Price")] Album Album, HttpPostedFileBase ImageFile)
         {
-            if (ModelState.IsValid)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                var path = Server.MapPath("~/Content/Ressources/Images/Albums/");
-                int fileNumber = Directory.GetFiles(path).Length + 1;
-                
-                Album.Thumbnail = fileNumber;
+                if (ModelState.IsValid)
+                {
+                    var path = Server.MapPath("~/Content/Ressources/Images/Albums/");
+                    int fileNumber = Directory.GetFiles(path).Length + 1;
 
-                db.Albums.Add(Album);
-                db.SaveChanges();
-                
-                string filename = Path.GetFileName(fileNumber.ToString() + ".png");
-                ImageFile.SaveAs(Path.Combine(path, filename));
+                    Album.Thumbnail = fileNumber;
 
-                return RedirectToAction("Index");
+                    db.Albums.Add(Album);
+                    db.SaveChanges();
+
+                    string filename = Path.GetFileName(fileNumber.ToString() + ".png");
+                    ImageFile.SaveAs(Path.Combine(path, filename));
+
+                    return RedirectToAction("Index");
+                }
+
+                return View(Album);
             }
 
-            return View(Album);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: AdminAlbum/Delete/id
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Album album = db.Albums.Find(id);
+                if (album == null)
+                {
+                    return HttpNotFound();
+                }
+                db.Albums.Remove(album);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            Album album = db.Albums.Find(id);
-            if (album == null)
-            {
-                return HttpNotFound();
-            }
-            db.Albums.Remove(album);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: AdminAlbum/Delete/id
@@ -85,46 +100,61 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Album album = db.Albums.Find(id);
-            db.Albums.Remove(album);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            {
+                Album album = db.Albums.Find(id);
+                db.Albums.Remove(album);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: AdminAlbum/Details/id
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Album album = db.Albums.Find(id);
-            if (album == null)
-            {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Album album = db.Albums.Find(id);
+                if (album == null)
+                {
+                    return HttpNotFound();
+                }
+
+                AlbumsResponseVM albumResponseVM = new AlbumsResponseVM()
+                {
+                    Album = album,
+                    Musics = db.Musics.Where(a => a.Album.ID == album.ID).ToList()
+                };
+                return View(albumResponseVM);
             }
 
-            AlbumsResponseVM albumResponseVM = new AlbumsResponseVM()
-            {
-                Album = album,
-                Musics = db.Musics.Where(a => a.Album.ID == album.ID).ToList()
-            };
-            return View(albumResponseVM);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: AdminAlbums/Edit/id
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Album album = db.Albums.Find(id);
+                if (album == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(album);
             }
-            Album album = db.Albums.Find(id);
-            if (album == null)
-            {
-                return HttpNotFound();
-            }
-            return View(album);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: AdminAlbum/Edit/id
@@ -134,15 +164,20 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Artist,ReleaseDate,Genre,Price")] Album Album)
         {
-            if (ModelState.IsValid)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                db.Entry(Album).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(Album).State = EntityState.Modified;
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+
+                return View(Album);
             }
 
-            return View(Album);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

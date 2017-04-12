@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ViewModels;
+using System.Diagnostics;
 
 namespace _10H.Controllers
 {
@@ -18,25 +19,35 @@ namespace _10H.Controllers
         // GET: AdminMusic
         public ActionResult Index()
         {
-            var musics = db.Musics.Include(m => m.Album).ToList();
-
-            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                Musics = musics
-            };
+                var musics = db.Musics.Include(m => m.Album).ToList();
 
-            return View(musicsResponseVM);
+                MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+                {
+                    Musics = musics
+                };
+
+                return View(musicsResponseVM);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // Get: AdminMusic/Create
         public ActionResult Create()
         {
-            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                Albums = db.Albums.ToList(),
-                AlbumTemplate = new SelectList(db.Albums, "ID", "Name", 1)
-            };
-            return View(musicsResponseVM);
+                MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+                {
+                    Albums = db.Albums.ToList(),
+                    AlbumTemplate = new SelectList(db.Albums, "ID", "Name", 1)
+                };
+                return View(musicsResponseVM);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: AdminMusic/Create
@@ -44,46 +55,65 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken] //Eviter l'injection de script par onglet
         public ActionResult Create(MusicsResponseVM MusicVM, HttpPostedFileBase MusicFile)
         {
-            if (ModelState.IsValid && MusicFile != null)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                Music Music = MusicVM.Music1;
+                if (ModelState.IsValid && MusicFile != null)
+                {
+                    Music Music = MusicVM.Music1;
 
-                var path = Server.MapPath("~/Content/Ressources/Musics/");
-                int fileNumber = Directory.GetFiles(path).Length + 1;
+                    var path = Server.MapPath("~/Content/Ressources/Musics/");
+                    var path2 = Server.MapPath("~/Content/Ressources/CutMusics/");
+                    int fileNumber = Directory.GetFiles(path).Length + 1;
 
-                Music.Album = db.Albums.Find(MusicVM.selectedAlbumID);
-                Music.Thumbnail = Music.Album.Thumbnail;
-                Music.Number = fileNumber;
-                Music.Mark = 0;
-                Music.NumberOfComments = 0;
+                    Music.Album = db.Albums.Find(MusicVM.selectedAlbumID);
+                    Music.Thumbnail = Music.Album.Thumbnail;
+                    Music.Number = fileNumber;
+                    Music.Mark = 0;
+                    Music.NumberOfComments = 0;
 
-                db.Musics.Add(Music);
-                db.SaveChanges();
-                
-                string filename = Path.GetFileName(fileNumber.ToString() + ".mp3");
-                MusicFile.SaveAs(Path.Combine(path, filename));
+                    db.Musics.Add(Music);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    string filename = Path.GetFileName(fileNumber.ToString() + ".mp3");
+                    MusicFile.SaveAs(Path.Combine(path, filename));
+
+                    string ffPath = Server.MapPath("~/Content/Ressources/ffmpeg-20170411-f1d80bc-win64-static/bin/ffmpeg.exe");
+                    string processString = "-t 20 -i " + Path.Combine(path, filename) + " " + Path.Combine(path2, filename);
+
+                    System.Diagnostics.Process p = new System.Diagnostics.Process();
+                    p.StartInfo = new System.Diagnostics.ProcessStartInfo(ffPath, processString);
+                    p.Start();
+                    p.WaitForExit();
+
+                    return RedirectToAction("Index");
+                }
+
+                return View(MusicVM);
             }
 
-            return View(MusicVM);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: AdminMusic/Delete/id
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Music music = db.Musics.Find(id);
+                if (music == null)
+                {
+                    return HttpNotFound();
+                }
+                db.Musics.Remove(music);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            Music music = db.Musics.Find(id);
-            if (music == null)
-            {
-                return HttpNotFound();
-            }
-            db.Musics.Remove(music);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: AdminMusic/Delete/id
@@ -91,49 +121,64 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Music music = db.Musics.Find(id);
-            db.Musics.Remove(music);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            {
+                Music music = db.Musics.Find(id);
+                db.Musics.Remove(music);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: AdminMusic/Details/id
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Music music = db.Musics.Find(id);
+                if (music == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(music);
             }
-            Music music = db.Musics.Find(id);
-            if (music == null)
-            {
-                return HttpNotFound();
-            }
-            return View(music);
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: AdminMusic/Edit/id
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Music music = db.Musics.Find(id);
-            if (music == null)
-            {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Music music = db.Musics.Find(id);
+                if (music == null)
+                {
+                    return HttpNotFound();
+                }
+
+                MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+                {
+                    Albums = db.Albums.ToList(),
+                    AlbumTemplate = new SelectList(db.Albums, "ID", "Name", 1),
+                    Music1 = music,
+                    selectedAlbumID = music.Album.ID
+                };
+
+                return View(musicsResponseVM);
             }
 
-            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
-            {
-                Albums = db.Albums.ToList(),
-                AlbumTemplate = new SelectList(db.Albums, "ID", "Name", 1),
-                Music1 = music,
-                selectedAlbumID = music.Album.ID
-            };
-
-            return View(musicsResponseVM);
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: AdminMusic/Edit/id
@@ -143,19 +188,24 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(MusicsResponseVM MusicVM)
         {
-            if (ModelState.IsValid)
+            if ((Response.Cookies["userId"]["roleId"]) == "1")
             {
-                Music Music = MusicVM.Music1;
-                Music.Album = db.Albums.Find(MusicVM.selectedAlbumID);
-                Music.Thumbnail = Music.Album.Thumbnail;
+                if (ModelState.IsValid)
+                {
+                    Music Music = MusicVM.Music1;
+                    Music.Album = db.Albums.Find(MusicVM.selectedAlbumID);
+                    Music.Thumbnail = Music.Album.Thumbnail;
 
-                db.Entry(Music).State = EntityState.Modified;
-                db.SaveChanges();
+                    db.Entry(Music).State = EntityState.Modified;
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+
+                return View(MusicVM);
             }
 
-            return View(MusicVM);
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Play(int musicID)
