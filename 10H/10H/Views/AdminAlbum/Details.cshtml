@@ -1,4 +1,4 @@
-﻿@model Models.Album
+﻿@model ViewModels.AlbumsResponseVM
 
 @{
     ViewBag.Title = "Details";
@@ -12,52 +12,94 @@
     <dl class="dl-horizontal">
         <dt>Album</dt>
         <dd>
-            <img src="@Url.Content("~/Content/Ressources/Images/Albums/"+Model.Thumbnail+".png")" height="50" width="50" />
+            <img src="@Url.Content("~/Content/Ressources/Images/Albums/"+Model.Album.Thumbnail+".png")" height="50" width="50" />
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Album.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Album.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Artist)
+            @Html.DisplayNameFor(model => model.Album.Artist)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Artist)
+            @Html.DisplayFor(model => model.Album.Artist)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
+            @Html.DisplayNameFor(model => model.Album.ReleaseDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
+            @Html.DisplayFor(model => model.Album.ReleaseDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Genre)
+            @Html.DisplayNameFor(model => model.Album.Genre)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Genre)
+            @Html.DisplayFor(model => model.Album.Genre)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Album.Price)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.Album.Price)
         </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<table class="table">
+    <tr>
+        <th>Music</th>
+        <th>Name</th>
+        <th>Artist</th>
+        <th>ReleaseDate</th>
+        <th>Genre</th>
+        <th>Duration</th>
+        <th>Listen</th>
+    </tr>
+    @foreach (var item in Model.Musics)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content("~/Content/Ressources/Images/Albums/" + item.Thumbnail + ".png")" height="50" width="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artist)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                <audio controls>
+                    <source src="@Url.Action("Play", "AdminMusic", new { musicId = item.Number })" type="audio/mp3" />
+                    <p>Your browser does not support HTML 5 audio element</p>
+                </audio>
+            </td>
+        </tr>
+    }
+    </table>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Album.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 
 

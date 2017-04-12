@@ -16,3 +16,16 @@ textarea {
     max-width: 280px;
 }
 
+
+/* Put background image to logo link */
+a.logo
+{
+     background: url("Ressources/Images/logo.png") no-repeat top left;
+     background-color: transparent;
+     background-size: 50px 50px;
+     display: block;
+     width: 50px;
+     height: 50px;
+     text-indent: -9999px; /* hides the link text */
+}
+

@@ -216,6 +216,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MusicController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -315,6 +316,7 @@
     <Content Include="Views\AdminAlbum\Create.cshtml" />
     <Content Include="Views\AdminAlbum\Details.cshtml" />
     <Content Include="Views\AdminAlbum\Edit.cshtml" />
+    <Content Include="Views\Music\Index.cshtml" />
     <Content Include="Views\Comment\AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>

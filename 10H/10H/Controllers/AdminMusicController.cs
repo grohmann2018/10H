@@ -33,7 +33,8 @@ namespace _10H.Controllers
         {
             MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
             {
-                Albums = db.Albums.ToList()
+                Albums = db.Albums.ToList(),
+                AlbumTemplate = new SelectList(db.Albums, "ID", "Name", 1)
             };
             return View(musicsResponseVM);
         }
@@ -50,8 +51,8 @@ namespace _10H.Controllers
                 var path = Server.MapPath("~/Content/Ressources/Musics/");
                 int fileNumber = Directory.GetFiles(path).Length + 1;
 
-                Music.Album = db.Albums.First();
-                Music.Thumbnail = 1;
+                Music.Album = db.Albums.Find(MusicVM.selectedAlbumID);
+                Music.Thumbnail = Music.Album.Thumbnail;
                 Music.Number = fileNumber;
                 Music.Mark = 0;
                 Music.NumberOfComments = 0;
@@ -123,7 +124,16 @@ namespace _10H.Controllers
             {
                 return HttpNotFound();
             }
-            return View(music);
+
+            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
+            {
+                Albums = db.Albums.ToList(),
+                AlbumTemplate = new SelectList(db.Albums, "ID", "Name", 1),
+                Music1 = music,
+                selectedAlbumID = music.Album.ID
+            };
+
+            return View(musicsResponseVM);
         }
 
         // POST: AdminMusic/Edit/id
@@ -131,19 +141,21 @@ namespace _10H.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Artist,ReleaseDate,Genre,Price,Duration,Number")] Music Music)
+        public ActionResult Edit(MusicsResponseVM MusicVM)
         {
             if (ModelState.IsValid)
             {
-                //Music.AlbumID = 1;
-                
+                Music Music = MusicVM.Music1;
+                Music.Album = db.Albums.Find(MusicVM.selectedAlbumID);
+                Music.Thumbnail = Music.Album.Thumbnail;
+
                 db.Entry(Music).State = EntityState.Modified;
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
 
-            return View(Music);
+            return View(MusicVM);
         }
 
         public ActionResult Play(int musicID)

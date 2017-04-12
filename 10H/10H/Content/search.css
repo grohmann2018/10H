@@ -130,6 +130,16 @@ a{
     width: 100%;
     max-width: 100% !important;
 }
+}
+
+.logo{
+     background: url("Ressources/Images/logo.png") no-repeat top left;
+     display: block;
+     width: 150px;
+     height: 150px;
+     text-indent: -9999px; /* hides the link text */
+}
+}
 
 .btn-comment{
       margin-top: 1%;

@@ -23,7 +23,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("10H~", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("10H~", "Index", "Home", new { area = "" }, new { @class = "navbar-brand logo" })
             </div>
            
             <div class="navbar-collapse collapse">
@@ -32,6 +32,8 @@
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("MyMusics", "Index", "AdminMusic", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("MyOrders", "Index", "Help", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Musics", "Index", "AdminMusic", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Albums", "Index", "AdminAlbum", new { area = "" }, null)</li>
                     </ul>
                 }
                 else
