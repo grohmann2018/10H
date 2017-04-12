@@ -18,6 +18,7 @@ namespace ViewModels
         public int selectedAlbumID { get; set; }
         public SelectList AlbumTemplate { get; set; }
         public List<Album> Albums { get; set; }
+
         public List<int> MusicOrderedIds { get; set; }
     }
 }

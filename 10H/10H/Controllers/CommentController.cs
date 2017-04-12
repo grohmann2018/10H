@@ -58,16 +58,15 @@ namespace _10H.Controllers
                 List<Comment> comments =  db.Comments.Where(i => (i.MusicID == music.ID)).ToList();
                 int count = 0;
                 Decimal mark = 0;
-                foreach(var comment in comments)
+                for(int i = 0; i < comments.Count; i++)
                 {
-                    if(comment.Note == -1)
+                    if(comments[i].Note == -1)
                     {
-                        comments.Remove(comment);
                         continue;
                     }
                     else
                     {
-                        mark += comment.Note;
+                        mark += comments[i].Note;
                         count++;
                     }
                 }
@@ -125,6 +124,16 @@ namespace _10H.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("Index","Home");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Comment comment = db.Comments.Find(id);
+            Music music = db.Musics.Find(comment.MusicID);
+
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+            return RedirectToAction("AddComment", new {id = music.ID });
         }
     }
 }

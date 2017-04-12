@@ -256,6 +256,10 @@ namespace _10H.Controllers
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
 
+
+                Response.Cookies["userId"]["name"] = user.FirstName;
+                Response.Cookies["userId"]["roleId"] = user.RoleID.ToString();
+
                 return RedirectToAction("Index","Home");
             }
 

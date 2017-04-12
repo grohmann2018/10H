@@ -69,7 +69,14 @@
 <div style="margin: auto;width: 50%">
     @foreach (var item in Model.Comments)
     {
-        <div><textarea readonly id="comment">@item.Comments</textarea> <p><a class="btn btn-default btn-comment" onclick="">Delete !</a></p></div>
+        <div>
+            <textarea readonly id="comment">@item.Comments</textarea> 
+            @if (Request.Cookies["UserId"]["roleId"].Equals("1") )
+            {
+                <p><a class="btn btn-default btn-comment" onclick="">Delete !</a></p>
+            }
+            
+    </div>
     }
     <form id="loginForm" name="form1" method="post" action="/Comment/AddComment">
         <textarea id="comments" name="comments" placeholder="Comment ..."></textarea>

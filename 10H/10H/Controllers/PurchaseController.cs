@@ -32,39 +32,11 @@ namespace _10H.Controllers
             return View(musicsResponseVM);
         }
 
-        [HttpPost]
-        public ActionResult Buy(int musicID)
-        {
-            int userID = int.Parse(Request.Cookies["UserId"]["Id"]);
-
-            Order order = new Order();
-            order.UserID = userID;
-            order.MusicID = musicID;
-
-            db.Orders.Add(order);
-            db.SaveChanges();
-
-           
-            return View(order);
-        }
+        
 
 
         
-        public ActionResult BuyConfirmation(string name)
-        {
-            Music music = db.Musics.Find(1);
-            if (music == null)
-            {
-                return HttpNotFound();
-            }
-            MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
-            {
-                Music1 = music
-            };
-            //db.Users.Remove(user);
-            //db.SaveChanges();
-            return View(musicsResponseVM);
-        }
+        
 
 
     }

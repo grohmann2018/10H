@@ -221,6 +221,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusicController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -318,7 +319,7 @@
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Purchase\Index.cshtml" />
-    <Content Include="Views\Purchase\BuyConfirmation.cshtml" />
+    <Content Include="Views\Order\BuyConfirmation.cshtml" />
     <Content Include="Views\AdminMusic\Edit.cshtml" />
     <Content Include="Views\AdminMusic\Details.cshtml" />
     <Content Include="Views\AdminAlbum\Index.cshtml" />
@@ -330,6 +331,8 @@
     <Content Include="Views\Shared\_Musics.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\AlreadyBought.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
