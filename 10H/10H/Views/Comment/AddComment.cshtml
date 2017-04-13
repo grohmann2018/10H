@@ -36,14 +36,14 @@
         <dd>
             @Html.DisplayFor(model => model.Music.Artist)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Album.Name)
+        </dt>
 
-        @*<dt>
-                @Html.DisplayNameFor(model => model.AlbumID)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Album.Name)
+        </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.AlbumID)
-            </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.Music.ReleaseDate)
         </dt>
@@ -59,7 +59,21 @@
         <dd>
             @Html.DisplayFor(model => model.Music.Genre)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Music.Price)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.Music.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Music.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Music.Duration)
+        </dd>
     </dl>
     <audio controls style="margin-left: 25%;">
         <source src="@Url.Action("Play", new { musicId = Model.Music.Number })" type="audio/mp3" />

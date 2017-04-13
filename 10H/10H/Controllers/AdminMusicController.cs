@@ -37,7 +37,9 @@ namespace _10H.Controllers
         // Get: AdminMusic/Create
         public ActionResult Create()
         {
-            if ((Request.Cookies["userId"]["roleId"]) == "1")
+            //int id2 = int.Parse(Response.Cookies["userId"]["id"]);
+            //int id = int.Parse(Response.Cookies["userId"]["roleId"]);
+            if (int.Parse(Request.Cookies["userId"]["roleId"]) == 1)
             {
                 MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
                 {

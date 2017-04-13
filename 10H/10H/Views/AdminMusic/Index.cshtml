@@ -11,6 +11,9 @@
 
         window.location.href = "/Order/Buy/"+id;
     }
+    function goToDetails(id) {
+        window.location.href = '/AdminMusic/Details/' + id;
+    }
 </script>
 
 <h2>Music List</h2>
@@ -65,6 +68,11 @@
                 <td>
                     <form name="Buy" method="post">
                         <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn" onclick="BuyMusic(@item.ID);">Buy</button>
+                    </form>
+                </td>
+                <td>
+                    <form name="Buy" method="post">
+                        <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn" onclick="goToDetails(@item.ID);">Details</button>
                     </form>
                 </td>
         </tr>

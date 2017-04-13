@@ -1,5 +1,17 @@
 ﻿@model ViewModels.MusicsResponseVM
 
+<script type="text/javascript">
+
+    function BuyMusic(id)
+    {
+
+        window.location.href = "/Order/Buy/"+id;
+    }
+    function goToDetails(id) {
+        window.location.href = '/AdminMusic/Details/' + id;
+    }
+</script>
+
 <table class="table">
     <tr>
         <th>Music</th>
@@ -54,6 +66,16 @@
                         <p>Your browser does not support HTML 5 audio element</p>
                     </audio>
                 }
+            </td>
+            <td>
+                <form name="Buy" method="post">
+                    <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn" onclick="BuyMusic(@item.ID);">Buy</button>
+                </form>
+            </td>
+            <td>
+                <form name="Buy" method="post">
+                    <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn" onclick="goToDetails(@item.ID);">Details</button>
+                </form>
             </td>
         </tr>
     }

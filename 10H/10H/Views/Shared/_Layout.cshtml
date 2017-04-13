@@ -41,10 +41,10 @@
                 }
                 else
                 {
-                    @**<ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Accueil", "Index", "Home", new { area = "" }, null)</li>
                         <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>*@
+                    </ul>
                 }
 
                 @Html.Partial("_LoginPartial")
@@ -57,7 +57,7 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - 10H Corporation</p>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
             </footer>
         </div>
     </div>

@@ -15,5 +15,6 @@ namespace Models
         public string Password { get; set; }
         public string Adress { get; set; }
         public int RoleID { get; set; }
+        public Decimal Solde { get; set; }
     }
 }
