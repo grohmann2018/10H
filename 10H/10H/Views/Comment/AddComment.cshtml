@@ -76,7 +76,7 @@
         </dd>
     </dl>
     <audio controls style="margin-left: 25%;">
-        <source src="@Url.Action("Play", new { musicId = Model.Music.Number })" type="audio/mp3" />
+        <source src="@Url.Action("Play", "Music", new { musicId = Model.Music.Number, path = "Musics"})" type="audio/mp3" />
         <p>Your browser does not support HTML 5 audio element</p>
     </audio>
 </div>
