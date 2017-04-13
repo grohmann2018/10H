@@ -61,9 +61,12 @@
     <div class="row jumbotron">
         <h1 class="text-center">Welcome to 10H</h1>
         <h2 style="border-bottom:1px solid #eeeeee;">Most Popular</h2>
+
+        @if (@Model.Music1 != null)
+        {
         <div class="col-md-4">
             <div class="populars">
-                <img class="trending" src="~/Content/Ressources/Images/Albums/1.png" />
+                <img class="trending" src="@Url.Content("~/Content/Ressources/Images/Albums/"+Model.Music1.Thumbnail+".png")" height="150" width="150" />
                 <p>@Model.Music1.Name</p>
                 <p><a class="btn btn-default" onclick="goToDetails(@Model.Music1.ID);">Details </a></p>
 
@@ -73,7 +76,7 @@
                     {
                         <a class="full" style="cursor:pointer" onclick="SendMark(@Model.Music1.ID,  @j+1);">★</a>
                     }
-                    for (int j = 0; j < 5 -@Math.Round( Model.Music1.Mark); j++)
+                    for (int j = 0; j < 5 - @Math.Round(Model.Music1.Mark); j++)
                     {
                         <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.Music1.ID, @Math.Round(Model.Music1.Mark)+@j+1);">★</a>
                     }
@@ -92,9 +95,12 @@
                 <a style="cursor:pointer" onclick="GoToComments(@Model.Music1.ID);">@Model.Music1.NumberOfComments Comments</a>
             </div>
         </div>
+        }
+        @if (@Model.Music2 != null)
+        {
         <div class="col-md-4">
             <div class="populars">
-                <img class="trending" src="~/Content/Ressources/Images/Albums/2.png" />
+                <img class="trending" src="@Url.Content("~/Content/Ressources/Images/Albums/"+Model.Music2.Thumbnail+".png")" height="150" width="150" />
                 <p>@Model.Music2.Name</p>
                 <p><a class="btn btn-default" onclick="goToDetails(@Model.Music2.ID);">Details </a></p>
                 @if (@Request.Cookies["userId"] != null)
@@ -122,11 +128,39 @@
                 <a style="cursor:pointer" onclick="GoToComments(@Model.Music2.ID);">@Model.Music2.NumberOfComments Comments</a>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="populars">
-                <h2>Web Hosting</h2>
-                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+        }
+        @if (@Model.Music3 != null)
+        {
+            <div class="col-md-4">
+                <div class="populars">
+                    <img class="trending" src="@Url.Content("~/Content/Ressources/Images/Albums/"+Model.Music3.Thumbnail+".png")" height="150" width="150" />
+                    <p>@Model.Music3.Name</p>
+                    <p><a class="btn btn-default" onclick="goToDetails(@Model.Music3.ID);">Details </a></p>
+
+                    @if (@Request.Cookies["userId"] != null)
+                {
+                    for (int j = 0; j < @Math.Round(Model.Music3.Mark); j++)
+                    {
+                            <a class="full" style="cursor:pointer" onclick="SendMark(@Model.Music3.ID,  @j+1);">★</a>
+                        }
+                        for (int j = 0; j < 5 - @Math.Round(Model.Music3.Mark); j++)
+                        {
+                            <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.Music3.ID, @Math.Round(Model.Music3.Mark)+@j+1);">★</a>
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < @Math.Round(Model.Music3.Mark); j++)
+                        {
+                            <a class="full">★</a>
+                        }
+                        for (int j = 0; j < @Math.Round(5 - Model.Music3.Mark); j++)
+                        {
+                            <a class="empty">★</a>
+                        }
+                    }
+                    <a style="cursor:pointer" onclick="GoToComments(@Model.Music3.ID);">@Model.Music3.NumberOfComments Comments</a>
+                </div>
             </div>
-        </div>
+        }
     </div>

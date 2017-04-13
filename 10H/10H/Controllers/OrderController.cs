@@ -60,7 +60,7 @@ namespace _10H.Controllers
             if(music.Price > user.Solde)
             {
                 ModelState.AddModelError("", "Vous n'avez pas assez d'argent pour acheter cette musique");
-                return RedirectToAction("Details", "AdminMusic", new { id = id });
+                return RedirectToAction("NotEnoughMoney", new { id = id });
             }
             Order order = new Order();
             order.UserID = userID;
@@ -79,6 +79,15 @@ namespace _10H.Controllers
             
 
             return RedirectToAction("BuyConfirmation", "Order", new { id = id });
+        }
+
+        public ActionResult NotEnoughMoney(int id)
+        {
+            MusicsResponseVM vm = new MusicsResponseVM()
+            {
+                Music1 = db.Musics.Find(id)
+            };
+            return View(vm);
         }
 
         public ActionResult BuyConfirmation(int id)

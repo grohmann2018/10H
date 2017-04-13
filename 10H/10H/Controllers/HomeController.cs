@@ -15,14 +15,27 @@ namespace _10H.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            List<Music> musics = db.Musics.ToList();
+            List<Music> musics = db.Musics.OrderByDescending(a => a.Mark).ToList();
            
             MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
             {
-                Musics = musics,
-                Music1 = musics[0],
-                Music2 = musics[1],
+                Musics = musics
             };
+
+            if(musics.Count == 1)
+            {
+                musicsResponseVM.Music1 = musics[0];
+            } else if (musics.Count == 2)
+            {
+                musicsResponseVM.Music2 = musics[1];
+                musicsResponseVM.Music1 = musics[0];
+            }
+            else if (musics.Count >= 3)
+            {
+                musicsResponseVM.Music3 = musics[2];
+                musicsResponseVM.Music2 = musics[1];
+                musicsResponseVM.Music1 = musics[0];
+            }
             return View(musicsResponseVM);
         }
     }

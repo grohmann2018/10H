@@ -45,9 +45,6 @@
                     <source src="@Url.Action("Play", "Music", new { musicId = item.Number, path = "Musics" })" type="audio/mp3" />
                     <p>Your browser does not support HTML 5 audio element</p>
                 </audio>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
         </tr>
     }

@@ -9,11 +9,11 @@
 
 <h2>Musics</h2>
 
+
 <div>
     <br />
-
     @using (Ajax.BeginForm("Search", "Music",
-            new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "divMusics"}))
+                                new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "divMusics" }))
     {
         <table class="tableMusics">
             <tr>
@@ -29,13 +29,15 @@
                 <td><input type="submit" value="Search" /></td>
             </tr>
         </table>
-        
-    }
-</div>
 
+    }
+
+    
+</div>
 <div id="divMusics">
     @{Html.RenderPartial("_Musics", Model);}
 </div>
+
 
 
 

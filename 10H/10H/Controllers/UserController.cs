@@ -106,7 +106,8 @@ namespace _10H.Controllers
 
             if (newUser == null)
             {
-                return View("Index");
+                ModelState.AddModelError("", "Les informations que vous avez fournies sont erronées");
+                return View(user);
             }
             else
             {
