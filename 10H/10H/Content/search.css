@@ -32,7 +32,9 @@
   z-index: 1;
   color: #ffffff;
 }
-
+#loginForm{
+    line-height: 1.428571429 !important;
+}
 .login-container{
     margin-left: 30% !important;
     width: 50%;
@@ -43,7 +45,9 @@
     margin: auto;
     border: 3px solid #eeeeee;
     border-radius: 15px;
-     width: 80% !important;
+     width: 100% !important;
+         line-height: 1.428571429 !important;
+
 }
 h2, h4{
     text-align: center;

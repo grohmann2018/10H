@@ -39,20 +39,13 @@
                         }
                     </ul>
                 }
-                else
-                {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Accueil", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
-                }
 
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="image">
-        <div class="container body-content jumbotron">
+        <div class="container body-content">
 
             @RenderBody()
             <hr />

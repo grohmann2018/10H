@@ -8,9 +8,9 @@
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 <h2>@ViewBag.Title.</h2>
-<div class="row login-container">
+<div class="row login-container jumbotron">
     <div class="col-md-8 login-container-minus">
-        <section id="loginForm">
+        <section id="loginForm ">
             @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
