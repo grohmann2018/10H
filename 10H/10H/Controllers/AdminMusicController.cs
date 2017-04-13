@@ -19,7 +19,7 @@ namespace _10H.Controllers
         // GET: AdminMusic
         public ActionResult Index()
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 var musics = db.Musics.Include(m => m.Album).ToList();
 
@@ -37,7 +37,7 @@ namespace _10H.Controllers
         // Get: AdminMusic/Create
         public ActionResult Create()
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 MusicsResponseVM musicsResponseVM = new MusicsResponseVM()
                 {
@@ -55,7 +55,7 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken] //Eviter l'injection de script par onglet
         public ActionResult Create(MusicsResponseVM MusicVM, HttpPostedFileBase MusicFile)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (ModelState.IsValid && MusicFile != null)
                 {
@@ -97,7 +97,7 @@ namespace _10H.Controllers
         // GET: AdminMusic/Delete/id
         public ActionResult Delete(int? id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (id == null)
                 {
@@ -121,7 +121,7 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 Music music = db.Musics.Find(id);
                 db.Musics.Remove(music);
@@ -135,7 +135,7 @@ namespace _10H.Controllers
         // GET: AdminMusic/Details/id
         public ActionResult Details(int? id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (id == null)
                 {
@@ -155,7 +155,7 @@ namespace _10H.Controllers
         // GET: AdminMusic/Edit/id
         public ActionResult Edit(int? id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (id == null)
                 {
@@ -188,7 +188,7 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(MusicsResponseVM MusicVM)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (ModelState.IsValid)
                 {

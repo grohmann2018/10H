@@ -1,13 +1,13 @@
 ﻿@model ViewModels.MusicsResponseVM
 
 @{
-    ViewBag.Title = "Musiques";
+    ViewBag.Title = "Musics";
 }
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 
-<h2>Musiques</h2>
+<h2>Musics</h2>
 
 <div>
     <br />
@@ -15,28 +15,21 @@
     @using (Ajax.BeginForm("Search", "Music",
             new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "divMusics"}))
     {
-        <table>
+        <table class="tableMusics">
             <tr>
+                Search :
                 <td>@Html.LabelFor(M => M.Music1.Name)</td>
                 <td>@Html.TextBoxFor(M => M.Music1.Name)</td>
-            </tr>
-
-            <tr>
                 <td>@Html.LabelFor(M => M.Music1.Artist)</td>
                 <td>@Html.TextBoxFor(M => M.Music1.Artist)</td>
-            </tr>
-
-            <tr>
                 <td>@Html.LabelFor(M => M.Music1.ReleaseDate)</td>
                 <td>@Html.TextBoxFor(M => M.Music1.ReleaseDate)</td>
-            </tr>
-
-            <tr>
                 <td>@Html.LabelFor(M => M.Music1.Genre)</td>
                 <td>@Html.TextBoxFor(M => M.Music1.Genre)</td>
+                <td><input type="submit" value="Search" /></td>
             </tr>
         </table>
-        <input type="submit" value="Search" />
+        
     }
 </div>
 

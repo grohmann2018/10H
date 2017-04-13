@@ -29,3 +29,7 @@ a.logo
      text-indent: -9999px; /* hides the link text */
 }
 
+.tableMusics tr{
+    padding-left: 10px;
+}
+

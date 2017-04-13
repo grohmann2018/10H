@@ -34,8 +34,8 @@
                         <li>@Html.ActionLink("Musics", "Index", "Music", new { area = "" }, null)</li>
                         @if (Request.Cookies["UserId"]["roleId"] == "1")
                         {
-                        <li>@Html.ActionLink("Musics", "Index", "AdminMusic", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("Albums", "Index", "AdminAlbum", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Manage Musics", "Index", "AdminMusic", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Manage Albums", "Index", "AdminAlbum", new { area = "" }, null)</li>
                         }
                     </ul>
                 }
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="image">
-        <div class="container body-content ">
+        <div class="container body-content jumbotron">
 
             @RenderBody()
             <hr />

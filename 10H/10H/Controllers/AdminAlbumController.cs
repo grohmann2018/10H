@@ -14,11 +14,11 @@ namespace _10H.Controllers
     public class AdminAlbumController : Controller
     {
         private _10HDBContext db = new _10HDBContext();
-        //Response.Cookies["userId"]["id"]
+        //Request.Cookies["userId"]["id"]
         // GET: AdminAlbum
         public ActionResult Index()
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 var albums = db.Albums.ToList();
 
@@ -36,7 +36,7 @@ namespace _10H.Controllers
         // Get: AdminAlbum/Create
         public ActionResult Create()
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 return View();
             }
@@ -49,7 +49,7 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,Artist,ReleaseDate,Genre,Price")] Album Album, HttpPostedFileBase ImageFile)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (ModelState.IsValid)
                 {
@@ -76,7 +76,7 @@ namespace _10H.Controllers
         // GET: AdminAlbum/Delete/id
         public ActionResult Delete(int? id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (id == null)
                 {
@@ -100,7 +100,7 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 Album album = db.Albums.Find(id);
                 db.Albums.Remove(album);
@@ -114,7 +114,7 @@ namespace _10H.Controllers
         // GET: AdminAlbum/Details/id
         public ActionResult Details(int? id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (id == null)
                 {
@@ -140,7 +140,7 @@ namespace _10H.Controllers
         // GET: AdminAlbums/Edit/id
         public ActionResult Edit(int? id)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (id == null)
                 {
@@ -164,7 +164,7 @@ namespace _10H.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Artist,ReleaseDate,Genre,Price")] Album Album)
         {
-            if ((Response.Cookies["userId"]["roleId"]) == "1")
+            if ((Request.Cookies["userId"]["roleId"]) == "1")
             {
                 if (ModelState.IsValid)
                 {
