@@ -1,0 +1,135 @@
+﻿@model Models.Music
+
+@{
+    ViewBag.Title = "Details";
+}
+<script type="text/javascript">
+
+    function BuyMusic(id)
+    {
+
+        window.location.href = "/Purchase/BuyConfirmation/"+id;
+    }
+    function GoToComments(id) {
+        window.location.href = '/Comment/AddComment/' + id;
+    }
+    function SendMark(Musicid, mark)
+    {
+        var comment = {
+            User : null,
+            MusicID : Musicid,
+            Comments : null,
+            Note : mark,
+        };
+        $.ajax({
+            url: '/Comment/Mark',
+            type: 'post',
+            data: comment
+        });
+    }
+
+</script>
+<h2>Details</h2>
+
+<div class="details">
+    <h4 style="text-align:center;">Music</h4>
+    <hr />
+    <dl class="dl-horizontal dl-details">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Artist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artist)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Album.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Album.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+    </dl>
+    <audio controls style="margin-left: 25%;">
+        <source src="@Url.Action("Play", new { musicId = Model.Number, path = "Musics"})" type="audio/mp3" />
+        <p>Your browser does not support HTML 5 audio element</p>
+    </audio>
+
+    <form name="Buy" method="post" style="margin-left:40%">
+        <button type="button" style="display:inline-block" class="btn btn-primary btn-sm buy-btn-details" onclick="BuyMusic(@Model.ID);">Buy</button>
+    </form>
+    <div style="margin-left: 30%" ;>
+        @if (@Request.Cookies["userId"] != null)
+        {
+            for (int j = 0; j < @Math.Round(Model.Mark); j++)
+            {
+                <a class="full" style="cursor:pointer" onclick="SendMark(@Model.ID,  @j+1);">★</a>
+            }
+            for (int j = 0; j < 5 - @Math.Round(Model.Mark); j++)
+            {
+                <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.ID, @Math.Round(Model.Mark)+@j+1);">★</a>
+            }
+        }
+        else
+        {
+            for (int j = 0; j < @Math.Round(Model.Mark); j++)
+            {
+                <a class="full">★</a>
+            }
+            for (int j = 0; j < @Math.Round(5 - Model.Mark); j++)
+            {
+                <a class="empty">★</a>
+            }
+        }
+        <a style="cursor:pointer;margin-left:5%;" onclick="GoToComments(@Model.ID);">@Model.NumberOfComments Comments</a>
+    </div>
+
+</div>
+<p style="text-align:center;color:#333333">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+
