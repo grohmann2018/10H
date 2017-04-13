@@ -1,0 +1,17 @@
+﻿@model ViewModels.MusicsResponseVM
+
+@{
+    ViewBag.Title = "BuyConfirmation";
+}
+
+<h2>BuyConfirmation</h2>
+
+<div>
+    <p>
+        OH !! I'm sorry you don't have enough money to buy @Model.Music1.Name
+    </p> <br />
+    <p>Please go to your account and put more money</p>
+    <p>We hope to see you again soon !!</p>
+    @Html.ActionLink("More Money", "ManageSold","User",new { id = @Request.Cookies["userId"]["id"]})
+</div>
+

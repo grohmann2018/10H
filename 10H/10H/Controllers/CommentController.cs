@@ -125,7 +125,7 @@ namespace _10H.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("AddComment","Comment", new { id = MusicID });
         }
 
         public ActionResult Delete(int id)
