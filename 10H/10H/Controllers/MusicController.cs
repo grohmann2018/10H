@@ -36,6 +36,21 @@ namespace _10H.Controllers
             return RedirectToAction("Login", "User");
         }
 
+        // GET: Music/Details/id
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Music music = db.Musics.Find(id);
+            if (music == null)
+            {
+                return HttpNotFound();
+            }
+            return View(music);
+        }
+
         public ActionResult Play(int musicID, string path)
         {
             var file = Server.MapPath("~/Content/Ressources/"+path+"/" + musicID.ToString() + ".mp3");
@@ -57,8 +72,13 @@ namespace _10H.Controllers
             if (m.Genre != null)
                 lm = lm.Where(c => c.Genre.Equals(m.Genre)).ToList();
 
+            int userid = Int32.Parse(Request.Cookies["UserId"]["id"]);
+            var orders = db.Orders.Where(u => u.UserID == userid).Select(u => u.MusicID).ToList();
+
             MusicsResponseVM vm = new MusicsResponseVM();
             vm.Musics = lm;
+            vm.MusicOrderedIds = orders;
+
             return PartialView("_Musics", vm);
         }
     }
