@@ -136,6 +136,12 @@ dd , p{
     max-width: 100% !important;
 }
 
+#comments{
+        margin: auto;
+    width: 100%;
+    max-width: 100% !important;
+}
+
 
 .logo{
      background: url("Ressources/Images/logo.png") no-repeat top left;
@@ -154,6 +160,10 @@ dd , p{
       margin-left: 45%;
 }
 
+.buy-btn-details{
+    width: 30%!important ;
+    margin-bottom: 5%!important;
+}
 
 /* Dropdown Button */
 .dropbtn {

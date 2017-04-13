@@ -74,7 +74,7 @@
                     }
                     for (int j = 0; j < 5 -@Math.Round( Model.Music1.Mark); j++)
                     {
-                        <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.Music1.ID, 5-@j);">★</a>
+                        <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.Music1.ID, @Math.Round(Model.Music1.Mark)+@j+1);">★</a>
                     }
                 }
                 else
@@ -104,7 +104,7 @@
                     }
                     for (int j = 0; j < 5 - @Math.Round(Model.Music2.Mark); j++)
                     {
-                        <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.Music2.ID, 5-@j);">★</a>
+                        <a class="empty" style="cursor:pointer" onclick="SendMark(@Model.Music2.ID, @Math.Round(Model.Music2.Mark)+@j+1);">★</a>
                     }
                 }
                 else
