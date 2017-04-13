@@ -33,7 +33,7 @@
                         <div id="myDropdown" class="dropdown-content">
                             @Html.ActionLink("My Account", "Edit", "User", new { id  = Request.Cookies["UserId"]["id"] }, null)
                             @Html.ActionLink("My Musics", "Index", "Order", new { area = "" }, null)
-                            
+                            @Html.ActionLink("My Solde", "ManageSold", "User", new { id = Request.Cookies["UserId"]["id"] }, null)
                         </div>
                     </div>
                 </li>

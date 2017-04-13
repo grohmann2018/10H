@@ -92,13 +92,11 @@ namespace _10H.Controllers
                     if (comments[i].Comments != null)
                         TMPcomments.Add(comments[i]);
                 }
-                //foreach(var comment in comments)
-                //{
-                //    if (comment.Comments == null)
-                //        comments.Remove(comment);
-                //}
             }
-
+            
+            music.NumberOfComments= TMPcomments.Count;
+            db.Entry(music).State = EntityState.Modified;
+            db.SaveChanges();
 
             CommentsResponseVM commentResponseVM = new CommentsResponseVM
             {
@@ -109,13 +107,17 @@ namespace _10H.Controllers
             return View(commentResponseVM);
         }
 
-
+        // POST Comment/AddComment
         [HttpPost]
         public ActionResult AddComment(int MusicID, string comments )
         {
 
             if (ModelState.IsValid)
             {
+                Music music = db.Musics.Find(MusicID);
+                music.NumberOfComments++;
+                db.Entry(music).State = EntityState.Modified;
+
                 Comment comment = new Comment();
                 comment.MusicID = MusicID;
                 comment.Note = -1;
@@ -130,10 +132,15 @@ namespace _10H.Controllers
         {
             Comment comment = db.Comments.Find(id);
             Music music = db.Musics.Find(comment.MusicID);
-
+            music.NumberOfComments--;
+            db.Entry(music).State = EntityState.Modified;
             db.Comments.Remove(comment);
             db.SaveChanges();
             return RedirectToAction("AddComment", new {id = music.ID });
         }
+
+
+
+        
     }
 }
