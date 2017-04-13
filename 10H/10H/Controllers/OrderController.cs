@@ -1,6 +1,7 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -46,7 +47,21 @@ namespace _10H.Controllers
         public ActionResult Buy(int id)
         {
             int userID = int.Parse(Request.Cookies["UserId"]["Id"]);
-
+            User user = db.Users.Find(userID);
+            if(user == null)
+            {
+                return HttpNotFound();
+            }
+            Music music = db.Musics.Find(id);
+            if (music == null)
+            {
+                return HttpNotFound();
+            }
+            if(music.Price > user.Solde)
+            {
+                ModelState.AddModelError("", "Vous n'avez pas assez d'argent pour acheter cette musique");
+                return RedirectToAction("Details", "AdminMusic", new { id = id });
+            }
             Order order = new Order();
             order.UserID = userID;
             order.MusicID = id;
@@ -56,9 +71,12 @@ namespace _10H.Controllers
                 return RedirectToAction("AlreadyBought", "Order", new { id = id });
             }
 
+            user.Solde -= music.Price;
+            db.Entry(user).State = EntityState.Modified;
+
             db.Orders.Add(order);
             db.SaveChanges();
-
+            
 
             return RedirectToAction("BuyConfirmation", "Order", new { id = id });
         }
@@ -90,8 +108,7 @@ namespace _10H.Controllers
             {
                 Music1 = music
             };
-            //db.Users.Remove(user);
-            //db.SaveChanges();
+
             return View(musicsResponseVM);
         }
     }

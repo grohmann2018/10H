@@ -143,7 +143,8 @@ namespace _10H.Controllers
                     ModelState.AddModelError("", "Un compte existe déjà avec cet email");
                     return View(user);
                 }
-                user.RoleID = 1;
+                user.RoleID = 2;
+                user.Solde = 0;
                 db.Users.Add(user);
                 db.SaveChanges();
                 if (Request.Cookies["userId"] != null)
@@ -264,6 +265,35 @@ namespace _10H.Controllers
             }
 
             return View(userVM);
+        }
+
+        public ActionResult ManageSold(int id)
+        {
+            User user = db.Users.Find(id);
+
+            UsersResponseVM usersResponseVM = new UsersResponseVM
+            {
+                User = user
+            };
+
+            return View(usersResponseVM);
+        }
+
+
+        [HttpPost]
+        public ActionResult ManageSold(UsersResponseVM usersResponseVM)
+        {
+
+            if (ModelState.IsValid)
+            {
+                User user = usersResponseVM.User;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+
+            }
+            return View(usersResponseVM);
+
         }
     }
 

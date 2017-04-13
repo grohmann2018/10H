@@ -333,6 +333,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\AlreadyBought.cshtml" />
+    <Content Include="Views\User\ManageSold.cshtml" />
     <Content Include="Views\Music\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
